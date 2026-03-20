@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Trash2, Dumbbell, X } from 'lucide-react';
 import { useWorkouts } from '@/hooks/useWorkouts';
 import { WORKOUT_TYPES, EXERCISE_DATABASE } from '@/lib/constants';
@@ -10,7 +10,8 @@ import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function WorkoutsPage() {
-  const { workouts, isLoaded, addWorkout, deleteWorkout } = useWorkouts();
+  const [mounted, setMounted] = useState(false);
+  const { workouts, addWorkout, deleteWorkout } = useWorkouts();
   const [showModal, setShowModal] = useState(false);
   const [activeTab, setActiveTab] = useState<'history' | 'log'>('history');
 
@@ -23,6 +24,10 @@ export default function WorkoutsPage() {
   const [exercises, setExercises] = useState<Exercise[]>([
     { id: uuidv4(), name: '', sets: 3, reps: 10, weight: 0, unit: 'kg' },
   ]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const addExercise = () => {
     setExercises([...exercises, { id: uuidv4(), name: '', sets: 3, reps: 10, weight: 0, unit: 'kg' }]);
@@ -68,7 +73,7 @@ export default function WorkoutsPage() {
     return found?.icon || '💪';
   };
 
-  if (!isLoaded) {
+  if (!mounted) {
     return (
       <div className="page-container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh' }}>

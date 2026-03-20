@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { MessageSquare, Dumbbell, TrendingUp, Zap, Activity, Flame, Timer, Target } from 'lucide-react';
 import { useWorkouts } from '@/hooks/useWorkouts';
@@ -9,16 +10,21 @@ import { WORKOUT_TYPES } from '@/lib/constants';
 import { format } from 'date-fns';
 
 export default function DashboardPage() {
-  const { workouts, isLoaded, getRecentWorkouts } = useWorkouts();
+  const [mounted, setMounted] = useState(false);
+  const { workouts, getRecentWorkouts } = useWorkouts();
   const progress = useProgress(workouts);
   const recentWorkouts = getRecentWorkouts(5);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const getTypeIcon = (type: string) => {
     const found = WORKOUT_TYPES.find(t => t.value === type);
     return found?.icon || '💪';
   };
 
-  if (!isLoaded) {
+  if (!mounted) {
     return (
       <div className="page-container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh' }}>

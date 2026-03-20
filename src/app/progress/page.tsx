@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Activity, Flame, Timer, Target, TrendingUp, Dumbbell } from 'lucide-react';
 import { useWorkouts } from '@/hooks/useWorkouts';
 import { useProgress } from '@/hooks/useProgress';
@@ -13,10 +14,15 @@ import {
 const CHART_COLORS = ['#00d4ff', '#39ff14', '#ff6b35', '#a855f7', '#ec4899'];
 
 export default function ProgressPage() {
-  const { workouts, isLoaded } = useWorkouts();
+  const [mounted, setMounted] = useState(false);
+  const { workouts } = useWorkouts();
   const progress = useProgress(workouts);
 
-  if (!isLoaded) {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
     return (
       <div className="page-container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh' }}>

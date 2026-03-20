@@ -10,7 +10,9 @@ export function useWorkouts() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setWorkouts(getWorkoutsFromStorage());
+    // Force a small delay to ensure we're fully client-side
+    const stored = getWorkoutsFromStorage();
+    setWorkouts(stored);
     setIsLoaded(true);
   }, []);
 
