@@ -81,7 +81,7 @@ The chatbot isn't a generic wrapper around an LLM. It has a deep system prompt c
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/fitbot.git
+git clone https://github.com/akhil7168/fitbot.git
 cd fitbot
 
 # Install dependencies
