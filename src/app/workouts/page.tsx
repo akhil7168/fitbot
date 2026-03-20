@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic from 'next/dynamic';
 
 const WorkoutsContent = dynamic(() => import('@/components/WorkoutsContent'), {
