@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "FitBot AI — Your Personal Fitness Coach",
@@ -25,6 +26,7 @@ export default function RootLayout({
           <Sidebar />
           <main className="main-content">{children}</main>
         </div>
+        <Analytics />
       </body>
     </html>
   );
