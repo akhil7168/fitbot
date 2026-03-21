@@ -5,6 +5,7 @@ import { Send, Square, Trash2, AlertCircle, X, Zap, Bot } from 'lucide-react';
 import { useChat } from '@/hooks/useChat';
 import { SUGGESTED_PROMPTS } from '@/lib/constants';
 import { format } from 'date-fns';
+import { Analytics } from "@vercel/analytics/next"
 
 export default function ChatPage() {
   const { messages, isLoading, error, sendMessage, clearChat, stopStreaming, dismissError } = useChat();
@@ -48,7 +49,7 @@ export default function ChatPage() {
       .replace(/((?:<li>[\s\S]*?<\/li>\n?)+)/g, (match) => `<ul>${match}</ul>`)
       .replace(/\n\n/g, '</p><p>')
       .replace(/\n/g, '<br/>');
-    
+
     if (!html.startsWith('<')) html = `<p>${html}</p>`;
     return html;
   };
